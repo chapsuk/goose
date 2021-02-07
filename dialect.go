@@ -304,6 +304,9 @@ func (m ClickHouseDialect) createVersionTableSQL() string {
 }
 
 func (m ClickHouseDialect) dbVersionQuery(db *sql.DB) (*sql.Rows, error) {
+	if _, err := db.Exec("SET mutations_sync=2;"); err != nil {
+		return nil, fmt.Errorf("set mutations_sync: %w", err)
+	}
 	rows, err := db.Query(fmt.Sprintf("SELECT version_id, is_applied FROM %s ORDER BY version_id DESC", TableName()))
 	if err != nil {
 		return nil, err
