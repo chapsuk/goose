@@ -125,6 +125,7 @@ Drivers:
     mssql
     redshift
     clickhouse
+	vertica
 
 Examples:
     goose sqlite3 ./foo.db status
@@ -139,12 +140,14 @@ Examples:
     goose tidb "user:password@/dbname?parseTime=true" status
     goose mssql "sqlserver://user:password@dbname:1433?database=master" status
     goose clickhouse "tcp://127.0.0.1:9000" status
+    goose vertica "vertica://user:password@127.0.0.1:5433/dbname" status
 
     GOOSE_DRIVER=sqlite3 GOOSE_DBSTRING=./foo.db goose status
     GOOSE_DRIVER=sqlite3 GOOSE_DBSTRING=./foo.db goose create init sql
     GOOSE_DRIVER=postgres GOOSE_DBSTRING="user=postgres dbname=postgres sslmode=disable" goose status
     GOOSE_DRIVER=mysql GOOSE_DBSTRING="user:password@/dbname" goose status
     GOOSE_DRIVER=redshift GOOSE_DBSTRING="postgres://user:password@qwerty.us-east-1.redshift.amazonaws.com:5439/db" goose status
+    GOOSE_DRIVER=vertica GOOSE_DBSTRING="vertica://user:password@127.0.0.1:5433/dbname" goose status
 
 Options:
 `
