@@ -346,7 +346,7 @@ func (v VerticaDialect) createVersionTableSQL() string {
 }
 
 func (v VerticaDialect) insertVersionSQL() string {
-	return fmt.Sprintf("INSERT INTO %s (version_id, is_applied) VALUES ($1, $2);", TableName())
+	return fmt.Sprintf("INSERT INTO %s (version_id, is_applied) VALUES (?, ?);", TableName())
 }
 
 func (v VerticaDialect) dbVersionQuery(db *sql.DB) (*sql.Rows, error) {
@@ -359,9 +359,9 @@ func (v VerticaDialect) dbVersionQuery(db *sql.DB) (*sql.Rows, error) {
 }
 
 func (v VerticaDialect) migrationSQL() string {
-	return fmt.Sprintf("SELECT tstamp, is_applied FROM %s WHERE version_id=$1 ORDER BY tstamp DESC LIMIT 1", TableName())
+	return fmt.Sprintf("SELECT tstamp, is_applied FROM %s WHERE version_id=? ORDER BY tstamp DESC LIMIT 1", TableName())
 }
 
 func (v VerticaDialect) deleteVersionSQL() string {
-	return fmt.Sprintf("DELETE FROM %s WHERE version_id=$1;", TableName())
+	return fmt.Sprintf("DELETE FROM %s WHERE version_id=?;", TableName())
 }
